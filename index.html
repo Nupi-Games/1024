@@ -12,11 +12,29 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
+            justify-content: flex-start;
+            min-height: 100vh;
             margin: 0;
-            overflow: hidden;
+            padding-top: 20px;
         }
+
+        /* Homepage Layout Styles */
+        .info-container {
+            width: 340px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .instructions {
+            font-size: 14px;
+            color: #776e65;
+            background: #eee4da;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        /* Original Game Styles */
         .heading {
             display: flex;
             width: 340px;
@@ -24,7 +42,7 @@
             align-items: center;
             margin-bottom: 10px;
         }
-        h1 { font-size: 60px; font-weight: bold; margin: 0; }
+        h1 { font-size: 50px; font-weight: bold; margin: 0; }
         .score-container {
             background: #bbada0;
             padding: 5px 15px;
@@ -35,6 +53,7 @@
             text-align: center;
         }
         .score-label { display: block; font-size: 10px; color: #eee4da; text-transform: uppercase; }
+        
         #game-container {
             width: 340px;
             height: 340px;
@@ -52,10 +71,7 @@
             width: 100%;
             height: 100%;
         }
-        .cell {
-            background: rgba(238, 228, 218, 0.35);
-            border-radius: 3px;
-        }
+        .cell { background: rgba(238, 228, 218, 0.35); border-radius: 3px; }
         .tile {
             width: 72.5px;
             height: 72.5px;
@@ -78,6 +94,7 @@
         .tile-512 { background: #edc850; color: #f9f6f2; font-size: 24px; }
         .tile-1024 { background: #edc53f; color: #f9f6f2; font-size: 18px; }
         .tile-2048 { background: #edc22e; color: #f9f6f2; font-size: 18px; }
+        
         #game-over {
             display: none;
             position: absolute;
@@ -101,10 +118,19 @@
     </style>
 </head>
 <body>
-    <div class="heading">
+
+    <div class="info-container">
         <h1>2048</h1>
+        <div class="instructions">
+            Join the numbers to get to the <strong>2048</strong> tile!
+            <br>Use arrow keys or swipe to move.
+        </div>
+    </div>
+
+    <div class="heading">
         <div class="score-container"><span class="score-label">Score</span><span id="score">0</span></div>
     </div>
+
     <div id="game-container">
         <div class="grid">
             <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
@@ -212,7 +238,9 @@
             document.getElementById("game-over").style.display = "flex";
         }
 
-        function resetGame() { init(); }
+        function resetGame() {
+            init();
+        }
 
         window.addEventListener("keydown", e => {
             if (e.key === "ArrowLeft") move("left");
@@ -221,7 +249,7 @@
             if (e.key === "ArrowDown") move("down");
         });
 
-        // Touch support for mobile previewing
+        // Touch support for mobile
         let touchStartClientX, touchStartClientY;
         const container = document.getElementById("game-container");
         container.addEventListener("touchstart", e => {
